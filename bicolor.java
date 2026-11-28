@@ -27,7 +27,7 @@ class NoAN {
 class bicolor{
    private NoAN raiz;
 
-   public Alvinegra() {
+   public bicolor() {
       raiz = null;
    }
 
@@ -125,23 +125,23 @@ class bicolor{
    }
 
    private void inserir(int elemento, NoAN bisavo, NoAN avo, NoAN pai, NoAN i) throws Exception {
-      if (i == null) {
+      if (i == null) { //se for null, a inserção acontecerá, sua posição será determinada pelo seu valor em relação ao valor de seu pai
          if (elemento < pai.elemento) {
-            i = pai.esq = new NoAN(elemento, true);//todo elemento novo inserido é gemeo de seu pai(tirando os 3 primeiros)
+            i = pai.esq = new NoAN(elemento, true);//todo elemento novo inserido é gemeo de seu pai(tirando os 3 primeiros). I ASSUME A POSIÇÃO DO NOVO ELEMENTO INSERIDO PARA NÃO CONTINUAR COM O VALOR NULL
          } else {
-            i = pai.dir = new NoAN(elemento, true);//todo elemento novo inserido é gemeo de seu pai(tirando os 3 primeiros)
+            i = pai.dir = new NoAN(elemento, true);//todo elemento novo inserido é gemeo de seu pai(tirando os 3 primeiros). I ASSUME A POSIÇÃO DO NOVO ELEMENTO INSERIDO PARA NÃO CONTINUAR COM O VALOR NULL
          }
          if (pai.cor == true) { //não se pode ter filho com cor true e pai com cor true(gêmeos consecutivos) 
             balancear(bisavo, avo, pai, i);
          }
-      } else {
-         // Achou um 4-no: eh preciso fragmeta-lo e reequilibrar a arvore
+      } else { //FORA DA INSERÇÃO: NAVEGAÇÃO PELA ÁRVORE PROCURANDO O ELEMENTO E SE ACHAR UM NÓ DO TIPO 4 FRAGMENTA-LO
+         // Achou um no tipo 4: eh preciso fragmeta-lo (inverter cores dos filhos e do pai) e reequilibrar a arvore 
          if (i.esq != null && i.dir != null && i.esq.cor == true && i.dir.cor == true) {
             i.cor = true;
             i.esq.cor = i.dir.cor = false;
-            if (i == raiz) {
+            if (i == raiz) {//a cor de raiz é sempre false
                i.cor = false;
-            } else if (pai.cor == true) {
+            } else if (pai.cor == true) { //não se pode ter filho com cor true e pai com cor true(gêmeos consecutivos)  
                balancear(bisavo, avo, pai, i);
             }
          }
@@ -156,7 +156,7 @@ class bicolor{
    }
 
     private void balancear(NoAN bisavo, NoAN avo, NoAN pai, NoAN i) {
-      // Se o pai tambem e preto, reequilibrar a arvore, rotacionando o avo
+      // Se o pai tambem é preto, reequilibrar a arvore, rotacionando o avo
       if (pai.cor == true) {
          // 4 tipos de reequilibrios e acoplamento
          if (pai.elemento > avo.elemento) { // rotacao a esquerda ou direita-esquerda

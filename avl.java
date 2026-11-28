@@ -119,7 +119,7 @@ class arvoreAVL {
 			} else if (fator == 2) { //DESBALANCEADO 2 PRA DIREITA
 				int fatorFilhoDir = No.getNivel(no.dir.dir) - No.getNivel(no.dir.esq); //filho é no.dir pois está desbalanceado pra direita
 				if (fatorFilhoDir == -1) { //se TRUE, será necessário uma rotação dupla, pois estará num formato V
-					no.dir = rotacionarDir(no.dir);
+					no.dir = rotacionarDir(no.dir); 
 				}
 				no = rotacionarEsq(no);
 			} else if (fator == -2) {//DESBALANCEADO 2 PRA ESQUERDA
